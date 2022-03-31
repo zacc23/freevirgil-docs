@@ -1,0 +1,29 @@
+﻿freevirgil.hamiltonian
+======================
+
+.. automodule:: freevirgil.hamiltonian
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      hamiltonian
+   
+   
+
+   
+   
+   
+
+
+

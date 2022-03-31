@@ -1,0 +1,36 @@
+Getting Started
+===============
+
+This page details how to get started with freevirgil. 
+
+Installation
+------------
+Requirements:
+
+* **Python 3**
+
+Install by exectuting:
+::
+
+    pip install git+https://github.com/zacc23/freevirgil.git
+
+or
+
+::
+
+    git clone https://github.com/zacc23/freevirgil.git
+    cd freevirgil
+    pip install .
+
+References
+----------
+
+Gibbs distribution: 
+:math:`P(\alpha) = e^{-E(\alpha)/kT}`.
+
+Ising Hamiltonian:
+:math:`\displaystyle\hat{H}' = \frac{\hat{H}}{k} = -\frac{J}{k}\sum_{<ij>} s_is_j + \tfrac{\mu}{k}\sum_i s_i,`
+
+.. image:: ./plot.png
+    :width: 400
+    :alt: Qualities  vs Temperature 
