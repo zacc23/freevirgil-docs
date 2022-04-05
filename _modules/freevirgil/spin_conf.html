@@ -172,9 +172,33 @@
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">N</span> <span class="o">=</span> <span class="n">N</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">dim</span> <span class="o">=</span> <span class="mi">2</span><span class="o">**</span><span class="n">N</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sites</span> <span class="o">=</span> <span class="n">N</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dim</span> <span class="o">=</span> <span class="mi">2</span><span class="o">**</span><span class="n">N</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">N</span></div>
     
+<div class="viewcode-block" id="spin_conf.M"><a class="viewcode-back" href="../../api.html#freevirgil.spin_conf.M">[docs]</a>    <span class="k">def</span> <span class="nf">M</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Magnetization of configuration</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        M : float</span>
+<span class="sd">            magnetization</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">N_up</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">N_down</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">sites</span><span class="p">):</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">N_up</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">N_down</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="k">return</span> <span class="n">N_up</span> <span class="o">-</span> <span class="n">N_down</span></div>
+
 <div class="viewcode-block" id="spin_conf.dec_conf"><a class="viewcode-back" href="../../api.html#freevirgil.spin_conf.dec_conf">[docs]</a>    <span class="k">def</span> <span class="nf">dec_conf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dec</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Convert decimal to binary (-1, 1)</span>
@@ -188,8 +212,6 @@
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
-<span class="sd">        conf : int list</span>
-<span class="sd">            Spin configuration list (-1, 1)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">conf</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">bin</span><span class="p">(</span><span class="n">dec</span><span class="p">)[</span><span class="mi">2</span><span class="p">:]]</span>
         
@@ -197,17 +219,25 @@
             <span class="k">if</span> <span class="n">conf</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="n">conf</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
         
-        <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">conf</span><span class="p">)</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">N</span><span class="p">:</span>
+        <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">conf</span><span class="p">)</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">sites</span><span class="p">:</span>
             <span class="n">conf</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">conf</span>
             
-        <span class="k">return</span> <span class="n">conf</span></div></div>
-        
-<span class="c1"># ADD FUNCTION for specifying possible config size</span>
-<span class="c1">#configs = 2 ** self.N</span>
-<span class="c1">#spin = [0] * configs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">conf</span></div>
 
-<span class="c1"># ADJUST CLASS INIT for hamiltonian</span>
-<span class="c1">#ham = hamiltonian(N, J=-2.0, k=1.1)</span>
+<div class="viewcode-block" id="spin_conf.set_conf"><a class="viewcode-back" href="../../api.html#freevirgil.spin_conf.set_conf">[docs]</a>    <span class="k">def</span> <span class="nf">set_conf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">conf</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Specify binary (-1, 1) </span>
+<span class="sd">        spin configuration</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        conf : int list</span>
+<span class="sd">            Spin configuration list (-1, 1)</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">conf</span>       </div></div>
 </pre></div>
 
            </div>

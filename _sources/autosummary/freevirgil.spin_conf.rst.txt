@@ -13,8 +13,10 @@
 
    .. autosummary::
    
+      ~spin_conf.M
       ~spin_conf.__init__
       ~spin_conf.dec_conf
+      ~spin_conf.set_conf
    
    
 
